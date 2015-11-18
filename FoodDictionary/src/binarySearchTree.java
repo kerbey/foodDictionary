@@ -1,31 +1,32 @@
 import java.util.Scanner;
-
 public class binarySearchTree<T> implements Comparable<Object>
 {
 	static Scanner input= new Scanner(System.in);
 	private T name, element;
 	public BSTNode<T> head, previous, tail, current, node, root, tree, storeRoot=root;
 	String list, location, foodsIngredients;
-	boolean found;
+	boolean found, containsValue;
 	ingredientsLinkedList<String> ingredients= new ingredientsLinkedList<>();
-
+	
 	public binarySearchTree() 
 	{
 		root = null;
 	}
+	
 	@Override
 	public int compareTo(Object tree) 
 	{
 		return 0;
 	}
+	
 
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private boolean recContains(T element, BSTNode<T> tree)
 	// Returns true if tree contains an element e such that
 	// e.equals(element), otherwise returns false.
 	{
 		System.out.println(" now in reccontains method (search for string and either finds it or not)");
-		if (tree==null) //System.out.println("recontains tree empty=");// gui.notFound();
+		if (tree==null)
 			return false;
 		// element is not found
 		else if (((Comparable<T>) element).compareTo(tree.getInfo()) < 0)
@@ -44,43 +45,28 @@ public class binarySearchTree<T> implements Comparable<Object>
 		else System.out.println("found it cause tree.getinfo=="+tree.getInfo());
 		return true; // element is found*/		
 	}
+	
 	public void contains(T element, String foodsIngredients)// Returns true if this BST contains an element e such that
 	// e.equals(element), otherwise returns false.
 	{
-		boolean containsValue = false;
+		containsValue = false;
 		System.out.println("contains method");
-		BSTNode<T> g = new BSTNode<T>(null);
-		if(g.checkFile(element)==true)
 		{
 			containsValue = recContains(element, root);
 		}
 		tree=root;//setting root equal to tree because going to the main and back to the remove methods didn't see the tree
-		System.out.println("do you want to remove it?");
-		//String answer=input.next();
-		//answer.toLowerCase();
-		if (containsValue==true)// && answer=="yes")//if method finds value then it will be ok to delete
+		
+		if (containsValue==true)//if method finds value then it will be ok to delete
 		{
 			remove(element, tree);
 			return;
 		}
 		else
 		{
+			System.out.println("reccontains method didn't find the food in the tree");
 			return;
 		}
 	}
-	/*public boolean isEmpty()
-	{
-		if (root==null) {
-			// throw new EmptyListException
-			// ("(is empty method )the list is empty");
-			System.out.println("(is empty method )the list is empty");
-			return false;
-		} else {
-			System.out.println("the list from inside the isempty method is  = "
-					+ tree.toString() + "\n");
-			return true;
-		}
-	}*/
 
 	public void add(T element)
 	// Adds element to this BST. The tree retains its BST property.
@@ -108,13 +94,11 @@ public class binarySearchTree<T> implements Comparable<Object>
 			tree.setRight(recAdd(element, tree.getRight()));
 		return tree;
 	}
-
 	@SuppressWarnings("unchecked")
 	public T getString() {
 		return (T) toString();
 	}
 
-	@SuppressWarnings("unchecked")
 	public boolean remove (T element,BSTNode<T> tree) // Removes an element e from this BST
 	//such that e.equals(element); // and returns true; if no such element exists returns false
 	{	
@@ -125,8 +109,8 @@ public class binarySearchTree<T> implements Comparable<Object>
 		root = recRemove(element, tree); 
 		System.out.println("new root="+root);
 		System.out.println("leaving the remove method cause tree="+tree);
-		System.out.println("treeright="+tree.getRight());
-		System.out.println("treeleft="+tree.getLeft());
+		//System.out.println("treeright="+tree.getRight());
+		//System.out.println("treeleft="+tree.getLeft());
 		System.out.println("found===="+found);
 		return found;
 	}
@@ -140,7 +124,7 @@ public class binarySearchTree<T> implements Comparable<Object>
 		if (tree == null)
 		{
 			found = false;
-			System.out.println("tree="+tree.getInfo());
+			System.out.println("tree=");
 		}
 
 		else if (((Comparable<T>) element).compareTo(tree.getInfo()) < 0)
@@ -163,12 +147,12 @@ public class binarySearchTree<T> implements Comparable<Object>
 	}
 
 	private BSTNode<T> removeNode(BSTNode<T> tree)
-	// Removes the information at the node referenced by tree
-	// The user's data in the node referenced to by tree is no
-	// longer in the tree. If tree is a leaf node or has only
-	// a non-null child pointer, the node pointed to by tree is
-	// removed; otherwise, the user's data is replaced by its
-	// logical predecessor and the predecessor's node is removed
+//	 Removes the information at the node referenced by tree
+//	 The user's data in the node referenced to by tree is no
+//	 longer in the tree. If tree is a leaf node or has only
+//	 a non-null child pointer, the node pointed to by tree is
+//	 removed; otherwise, the user's data is replaced by its
+//	 logical predecessor and the predecessor's node is removed
 	{
 		System.out.println("now in removeNode");
 		T data;
